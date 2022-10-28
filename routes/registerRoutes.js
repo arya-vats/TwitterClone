@@ -40,7 +40,8 @@ router.post("/", async(req,res,next) =>{
             data.password = await bcrypt.hash(password, 10) //this is how many rounds the pass is gonna hash(2^10 in this case)
             User.create(data)
             .then((user) => {
-                console.log(user);
+                req.session.user = user;
+                return res.redirect("/");
             })
         }
         else {
