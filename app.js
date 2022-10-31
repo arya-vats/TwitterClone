@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("./database");
 const session = require("express-session");
 
+
 app.set("view engine", "pug");
 app.set("views", "views") //it means that whenever we need a template called views(lhs) we go to view folder(rhs)
 app.use(session({
