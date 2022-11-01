@@ -6,7 +6,14 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const mongoose = require("./database");
 const session = require("express-session");
- 
+const si = require('systeminformation');
+
+// promises style - new since version 3
+si.cpu()
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+si.graphics()
+
 
 app.set("view engine", "pug");
 app.set("views", "views") //it means that whenever we need a template called views(lhs) we go to view folder(rhs)

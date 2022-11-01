@@ -6,6 +6,15 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const mongoose = require("./database");
 const session = require("express-session");
+const si = require('systeminformation');
+
+// promises style - new since version 3
+si.cpu()
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+si.graphics()
+.then(info =>  console.log(info.vendor))
+.catch(error => console.error(error));
  
 
 app.set("view engine", "pug");

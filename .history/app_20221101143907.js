@@ -6,7 +6,8 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const mongoose = require("./database");
 const session = require("express-session");
- 
+cons
+
 
 app.set("view engine", "pug");
 app.set("views", "views") //it means that whenever we need a template called views(lhs) we go to view folder(rhs)
@@ -25,8 +26,7 @@ app.use(session({
 
  app.use("/login", loginRoute);
  app.use("/register", registerRoute);
- app.use("/logout", logoutRoute);
- app.get("/", middleware.requireLogin, (req,res,next)=>{
+app.get("/", middleware.requireLogin, (req,res,next)=>{
     
     var payload = {
         pageTitle: "Home",

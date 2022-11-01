@@ -1,0 +1,10 @@
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+
+}
+.mainSectionContainer {
+    background-color: blue;
+}

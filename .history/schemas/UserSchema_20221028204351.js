@@ -29,7 +29,7 @@ const UserSchema = new Schema({
     },
     profilePic: {
         type: String,
-        default: "/images/profilePic.jpg" //if user does not specify pp, then it will use this value instead.
+        default: "/images/profilePic.png" //if user does not specify pp, then it will use this value instead.
     },
 },{ timestamps: true 
 });
