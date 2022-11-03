@@ -25,7 +25,16 @@ $("#submitPostButton").click(()=> {
     }
 
      //making an AJAX request so that the browser does not reload and sends the information
-    $.post("/api/posts", data, (postData, status, xhr) => { //data is sent and postdata is received
-        alert(postData);
+    $.post("/api/posts", data, (postData) => { //data is sent and postdata is received
+        console.log(postData);
+
+        var html = createPostHtml(postData)
+        $(".postsContainer").prepend(html); //adds the post to the front (in case of append, adds to last)
+        textbox.val("");
+        button.prop("disabled", true)
     })
 })
+
+function createPostHtml(postData) {
+    return postData.content;
+}

@@ -6,9 +6,13 @@ const PostSchema = new Schema({
         trim: true
     },
     postedBy: {
-        type: Schema.Types.ObjectId //objectid is the unique id that is given to every stored value in db by mongoose
+        type: Schema.Types.ObjectId, //objectid is the unique id that is given to every stored value in db by mongoose
+        ref: 'User'
+    },
+    pinned: {
+        type: Boolean
     }
 },{timestamps: true});
 
 var Post = mongoose.model('Post', PostSchema);
-module.exports = User;
+module.exports = Post;
