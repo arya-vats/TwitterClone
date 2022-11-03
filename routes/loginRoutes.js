@@ -40,7 +40,7 @@ router.post("/", async(req,res,next)=>{
             return res.status(200).render("login", payload);
             
         }
-    } else{
+    } else {
         payload.errorMessage = "Make sure each field has a valid value.";
     }
     res.status(200).render("login"); 
