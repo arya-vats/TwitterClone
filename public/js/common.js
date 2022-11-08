@@ -38,6 +38,10 @@ $("#submitPostButton").click(()=> {
 function createPostHtml(postData) {
 
     var postedBy = postData.postedBy;
+
+    if(postedBy._id===undefined) {
+        return console.log("User object not populated")
+    }
     var displayName = postedBy.firstName + " " + postedBy.lastName;
     var timestamp = postData.createdAt;
     return `<div class='post'>
@@ -47,7 +51,7 @@ function createPostHtml(postData) {
                     </div>
                     <div class ='postContentContainer'>
                         <div class='header'>
-                            <a href='/profile/${postedBy.username}'> ${displayName}</a>
+                            <a href='/profile/${postedBy.username}'> <class='displayName'> ${displayName}</a>
                             <span class ='username'>@${postedBy.username}</span>
                             <span class ='date'>${timestamp}</span>
                         </div>
@@ -55,6 +59,21 @@ function createPostHtml(postData) {
                         <span>${postData.content}</span>
                         </div>
                         <div class='postFooter'>
+                        <div class='postButtonContainer'>
+                            <button>
+                                <i class='fa-solid fa-retweet'></i>
+                            </button>
+                        </div>
+                        <div class='postButtonContainer'>
+                            <button>
+                                <i class='fa-regular fa-comment'></i>
+                            </button>
+                        </div>
+                        <div class='postButtonContainer'>
+                            <button>
+                                <i class='fa-regular fa-heart'></i>
+                            </button>
+                        </div>
                         </div>
                     </div>
                 </div>

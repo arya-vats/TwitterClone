@@ -8,8 +8,13 @@ const Post = require("../../schemas/PostSchema");
 
 app.use(bodyParser.urlencoded({ extended:false })); //we need body parser to receive/parse the form data such that it can be used like req.body 
 router.get("/", (req,res,next)=>{
-  
-
+   Post.find()
+   .populate("postedBy")
+   .then((results)=>{
+      res.status(200).send(results) //since we are sending the results back to the page, for this callback would be used hence results are in the callback
+   }).catch(error => {
+      res.sendStatus(400);
+   })
 })
 
 router.post("/", async(req,res,next)=>{
