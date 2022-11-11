@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended:false })); //we need body parser to rec
 router.get("/", (req,res,next)=>{
    Post.find()
    .populate("postedBy")
+   .sort({"createdAt": 1})
    .then((results)=>{
       res.status(200).send(results) //since we are sending the results back to the page, for this callback would be used hence results are in the callback
    }).catch(error => {
