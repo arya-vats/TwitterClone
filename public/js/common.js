@@ -35,6 +35,23 @@ $("#submitPostButton").click(()=> {
     })
 })
 
+$(document).on("click", ".likeButton", (event)=> { //this will make sure that wherever button with .likebutton is clicked in the document, the result is executed.
+    var button = $(event.target);
+    var postId = getPostIdFromElement(button);
+    console.log(postId);
+})
+
+function getPostIdFromElement(element) {
+    var isRoot = element.hasClass("post"); //if any post has this class we know its the root element otherwise it is a child element
+    var rootElement = isRoot ? element : element.closest(".post"); //jquery selector (closest) that goes up the tree and finds the parent element of the class post :)
+    var postId = rootElement.data().id; //id gives us all of the data attributes attached to that post. In our case the id, that's why we have specified .id.
+
+    if(postId === undefined) {
+        return alert("post id is undefined");
+    }
+    return postId;
+}
+
 function createPostHtml(postData) {
 
     var postedBy = postData.postedBy;
@@ -44,7 +61,7 @@ function createPostHtml(postData) {
     }
     var displayName = postedBy.firstName + " " + postedBy.lastName;
     var timestamp = timeDifference(new Date(), new Date(postData.createdAt))
-    return `<div class='post'>
+    return `<div class='post' data-id='${postData._id}'>
                 <div class='mainContentContainer'>
                     <div class='userImageContainer'>
                         <img src='${postedBy.profilePic}'>
@@ -70,7 +87,7 @@ function createPostHtml(postData) {
                             </button>
                         </div>
                         <div class='postButtonContainer'>
-                            <button>
+                            <button class='likeButton'>
                                 <i class='fa-regular fa-heart'></i>
                             </button>
                         </div>

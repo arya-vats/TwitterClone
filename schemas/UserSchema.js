@@ -31,6 +31,10 @@ const UserSchema = new Schema({
         type: String,
         default: "/images/profilePic.jpg" //if user does not specify pp, then it will use this value instead.
     },
+    likes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
 },{ timestamps: true 
 });
 
