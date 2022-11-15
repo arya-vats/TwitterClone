@@ -41,11 +41,22 @@ router.post("/", async(req,res,next)=>{
    })
 })
 
-module.exports = router;
+router.post("/", async(req,res,next)=>{
 
+})
 
+router.put("/:id/like", async(req,res,next)=>{
+   // console.log((req.params.id)); //retrieving the post id from the url using params.
 
+   var postId = req.params.id;
+   var userId = req.session.user._id;
+   var isLiked = req.session.user.likes && req.session.user.likes.includes(postId);
 
+   //Insert user like
 
+   //insert post like
+   console.log("is liked : " +isLiked);
+   res.status(200).send("Yahoo")
+})
 
 module.exports = router;

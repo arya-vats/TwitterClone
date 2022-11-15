@@ -38,7 +38,17 @@ $("#submitPostButton").click(()=> {
 $(document).on("click", ".likeButton", (event)=> { //this will make sure that wherever button with .likebutton is clicked in the document, the result is executed.
     var button = $(event.target);
     var postId = getPostIdFromElement(button);
-    console.log(postId);
+    
+    if(postId===undefined){
+        return;
+    }
+    $.ajax({
+        url: `/api/posts/${postId}/like`,
+        type: "PUT",
+        success: (postData) => {
+            console.log(postData);
+        }
+    })
 })
 
 function getPostIdFromElement(element) {
