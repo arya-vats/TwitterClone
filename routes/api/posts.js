@@ -4,6 +4,7 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const User = require("../../schemas/UserSchema");
 const Post = require("../../schemas/PostSchema");
+const session = require("express-session");
 
 
 app.use(bodyParser.urlencoded({ extended:false })); //we need body parser to receive/parse the form data such that it can be used like req.body 
@@ -52,11 +53,23 @@ router.put("/:id/like", async(req,res,next)=>{
    var userId = req.session.user._id;
    var isLiked = req.session.user.likes && req.session.user.likes.includes(postId);
 
-   //Insert user like
+   var option = isLiked ? "$pull" : "$addToSet";
 
+   //Insert user like
+   req.session.user = await User.findByIdAndUpdate(userId, { [option]: { likes: postId}}, { new: true }) //add values to the likes array
+   //by default findbyid returns the previous user value which means that we will have the previous value which means unliked value, but we need new updated value, for that we use new:true at the end to tell this to return newly updated value.
+   .catch(error => {
+      console.log(error);
+      res.sendStatus(400);
+   })
    //insert post like
-   console.log("is liked : " +isLiked);
-   res.status(200).send("Yahoo")
+   var post = await Post.findByIdAndUpdate(postId, { [option]: { likes: userId}}, { new: true }) //add values to the likes array
+   //by default findbyid returns the previous post value which means that we will have the previous value which means unliked value, but we need new updated value, for that we use new:true at the end to tell this to return newly updated value.
+   .catch(error => {
+      console.log(error);
+      res.sendStatus(400);
+   })
+   res.status(200).send(post)
 })
 
 module.exports = router;
