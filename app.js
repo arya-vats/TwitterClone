@@ -35,7 +35,8 @@ app.use(session({
     
     var payload = {
         pageTitle: "Home",
-        userLoggedIn: req.session.user
+        userLoggedIn: req.session.user,
+        userLoggedInJs: JSON.stringify(req.session.user) //since we need to pass the data to the pug template we need JSON.stringify to be able to render the data inside a pug template.
     }
 
     res.status(200).render("home", payload); // it takes two parameter home and payload, payload is the data that we want to send to the page
