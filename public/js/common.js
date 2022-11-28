@@ -58,6 +58,30 @@ $(document).on("click", ".likeButton", (event)=> { //this will make sure that wh
     })
 })
 
+$(document).on("click", ".retweetButton", (event)=> { //this will make sure that wherever button with .likebutton is clicked in the document, the result is executed.
+    var button = $(event.target);
+    var postId = getPostIdFromElement(button);
+    
+    if(postId===undefined){
+        return;
+    }
+    $.ajax({
+        url: `/api/posts/${postId}/retweet`,
+        type: "POST",
+        success: (postData) => {
+            console.log(postData);
+            // button.find("span").text(postData.likes.length || "")
+
+            // if(postData.likes.includes(userLoggedIn._id)){
+            //     button.addClass("active")
+            // }
+            // else {
+            //     button.removeClass("active")
+            // }
+        }
+    })
+})
+
 function getPostIdFromElement(element) {
     var isRoot = element.hasClass("post"); //if any post has this class we know its the root element otherwise it is a child element
     var rootElement = isRoot ? element : element.closest(".post"); //jquery selector (closest) that goes up the tree and finds the parent element of the class post :)
@@ -100,7 +124,7 @@ function createPostHtml(postData) {
                             </button>
                         </div>
                         <div class='postButtonContainer green'>
-                            <button>
+                            <button class='retweetButton'>
                                 <i class='fa-solid fa-retweet'></i>
                             </button>
                         </div>

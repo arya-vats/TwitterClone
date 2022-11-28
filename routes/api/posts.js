@@ -72,4 +72,31 @@ router.put("/:id/like", async(req,res,next)=>{
    res.status(200).send(post)
 })
 
+router.post("/:id/retweet", async(req,res,next)=>{
+   return res.status(200).send("yee haa!");
+   // console.log((req.params.id)); //retrieving the post id from the url using params.
+
+   var postId = req.params.id;
+   var userId = req.session.user._id;
+   var isLiked = req.session.user.likes && req.session.user.likes.includes(postId);
+
+   var option = isLiked ? "$pull" : "$addToSet";
+
+   //Insert user like
+   req.session.user = await User.findByIdAndUpdate(userId, { [option]: { likes: postId}}, { new: true }) //add values to the likes array
+   //by default findbyid returns the previous user value which means that we will have the previous value which means unliked value, but we need new updated value, for that we use new:true at the end to tell this to return newly updated value.
+   .catch(error => {
+      console.log(error);
+      res.sendStatus(400);
+   })
+   //insert post like
+   var post = await Post.findByIdAndUpdate(postId, { [option]: { likes: userId}}, { new: true }) //add values to the likes array
+   //by default findbyid returns the previous post value which means that we will have the previous value which means unliked value, but we need new updated value, for that we use new:true at the end to tell this to return newly updated value.
+   .catch(error => {
+      console.log(error);
+      res.sendStatus(400);
+   })
+   res.status(200).send(post)
+})
+
 module.exports = router;
