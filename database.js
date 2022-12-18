@@ -5,7 +5,7 @@ class Database {
         this.connect();
     }
     connect() {
-        mongoose.connect("your mongodb url goes here").then(() =>{
+        mongoose.connect("your mongodb url goes here!").then(() =>{
     console.log(`connection successful`);
 }).catch((err)=>{
     console.log(`error no conn`);
